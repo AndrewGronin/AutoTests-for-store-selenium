@@ -10,13 +10,6 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="function")
 def browser(request):
     language = request.config.getoption("language")
-    browser = None
-    if language == "es":
-        print("\nStart test with es language")
-    elif language == "fr":
-        print("\nStart test with fr language")
-    else:
-        raise pytest.UsageError("--language should be es or fr")
 
     options = Options()
     options.add_experimental_option('prefs', {'intl.accept_languages': language})
