@@ -5,27 +5,24 @@ from .locators import ProductPageLocators
 from selenium.common.exceptions import NoAlertPresentException  # в начале файла
 
 
-
 class ProductPage(BasePage):
     def add_to_basket(self):
         button = self.browser.find_element(*ProductPageLocators.ADD_TO_BASKET_BUTTON)
         button.click()
-
 
     def is_name_right(self):
         el = self.browser.find_element(*ProductPageLocators.ALERT_ADD_TO_BASKET_NAME)
         text = el.text
         nm = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
         name = nm.text
-        return text == name
+        assert text == name, 'product name is wrong'
 
     def is_price_right(self):
         el = self.browser.find_element(*ProductPageLocators.ALERT_ADD_TO_BASKET_PRICE)
         text = el.text
         nm = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
         price = nm.text
-        return text == price
-
+        assert text == price, 'product price is wrong'
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
@@ -48,5 +45,3 @@ class ProductPage(BasePage):
     def should_disappear_success_message(self):
         assert self.is_disappeared(*ProductPageLocators.ALERT_ADD_TO_BASKET_NAME), \
             "Success message is not disappered"
-
-
